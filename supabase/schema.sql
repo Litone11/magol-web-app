@@ -64,7 +64,7 @@ set search_path = public
 as $$
   select exists (
     select 1 from public.admins
-    where email = (auth.jwt() ->> 'email')
+    where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
   );
 $$;
 
