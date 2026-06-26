@@ -37,7 +37,7 @@ export default function Footer({ contacts, go }) {
       </div>
       <div style={s("border-top:1px solid #1F1F24;")}>
         <div style={s("max-width:1240px;margin:0 auto;padding:20px 32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:'Barlow',sans-serif;font-size:13px;color:#5A5A62;")}>
-          <span>© 2026 MAGOL · Leonel Martins, Lda.</span>
+          <span>© 2026 MAGOL · José Marques, Lda.</span>
           <span>Branca · Albergaria-a-Velha · Aveiro</span>
         </div>
       </div>
