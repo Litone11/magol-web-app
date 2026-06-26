@@ -18,7 +18,7 @@ export default function Sobre({ content, go }) {
         <div style={s("height:7px;background:repeating-linear-gradient(45deg,#E01E26 0 16px,#0F0F11 16px 32px);")}></div>
       </section>
 
-      <section style={s("max-width:1240px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:start;")}>
+      <section style={s("max-width:1240px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:start;")}>
         <div>
           <p style={s("font-family:'Barlow',sans-serif;font-size:18px;line-height:1.7;color:#33333A;margin:0 0 20px;")}>{texts.aboutP1}</p>
           <p style={s("font-family:'Barlow',sans-serif;font-size:18px;line-height:1.7;color:#33333A;margin:0 0 20px;")}>{texts.aboutP2}</p>

@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { El, s } from "../ui.jsx";
 import { mapEmbedSrc } from "../lib/mapEmbed.js";
+import { useIsMobile } from "../lib/useIsMobile.js";
 
 const TERMS = ["Basculantes", "Caixas Abertas", "Isotérmicas", "Reboques", "Tintas", "Ferramentas", "Ferragens", "Reparações"];
 
@@ -23,16 +24,17 @@ function TickerRow({ hidden }) {
   );
 }
 
-export default function Home({ content, go, openQuote }) {
+export default function Home({ content, go }) {
   const { texts, stats } = content;
   const mapSrc = mapEmbedSrc(content.contacts);
+  const isMobile = useIsMobile();
   return (
     <main>
       {/* HERO */}
       <section style={s("position:relative;background:#0F0F11;overflow:hidden;")}>
-        <img src="https://loremflickr.com/1400/800/truck,lorry?lock=11" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+        <img src="________________" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
         <div style={s("position:absolute;inset:0;background:linear-gradient(95deg,rgba(15,15,17,.93) 0%,rgba(15,15,17,.74) 42%,rgba(15,15,17,.18) 100%);")}></div>
-        <div style={s("position:relative;max-width:1240px;margin:0 auto;padding:120px 32px 130px;width:100%;")}>
+        <div style={s("position:relative;max-width:1240px;margin:0 auto;padding:" + (isMobile ? "72px 24px 84px" : "120px 32px 130px") + ";width:100%;")}>
           <div style={s("display:flex;align-items:center;gap:14px;margin-bottom:26px;")}>
             <span style={s("width:38px;height:3px;background:#E01E26;display:block;")}></span>
             <span style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.22em;font-size:13px;color:#E01E26;")}>{texts.heroPre}</span>
@@ -68,7 +70,7 @@ export default function Home({ content, go, openQuote }) {
           </div>
           <p style={s("font-family:'Barlow',sans-serif;font-size:17px;line-height:1.6;color:#55555E;max-width:42ch;margin:0;")}>Do fabrico da carroçaria ao parafuso que falta para acabar o trabalho — resolvemos os dois.</p>
         </div>
-        <div style={s("display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;")}>
+        <div style={s("display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:24px;")}>
           {/* carro */}
           <div style={s("background:#0F0F11;color:#fff;overflow:hidden;display:flex;flex-direction:column;")}>
             <div style={s("position:relative;height:240px;")}>
@@ -123,7 +125,7 @@ export default function Home({ content, go, openQuote }) {
       </section>
 
       {/* SOBRE TEASER */}
-      <section style={s("max-width:1240px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;")}>
+      <section style={s("max-width:1240px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:center;")}>
         <div>
           <div style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:#E01E26;margin-bottom:14px;")}>A empresa</div>
           <h2 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(30px,4vw,46px);line-height:1.02;margin:0 0 22px;color:#16161A;")}>Mãos na massa há mais de quatro décadas</h2>
@@ -147,11 +149,11 @@ export default function Home({ content, go, openQuote }) {
         <div style={s("max-width:1240px;margin:0 auto;padding:70px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;")}>
           <div>
             <h2 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(28px,3.5vw,42px);line-height:1.02;margin:0;color:#fff;")}>Tem um projeto? <span style={{ color: "#E01E26" }}>Falamos consigo.</span></h2>
-            <p style={s("font-family:'Barlow',sans-serif;font-size:17px;color:#B6B6BD;margin:14px 0 0;")}>Peça um orçamento sem compromisso para carroçaria ou material.</p>
+            <p style={s("font-family:'Barlow',sans-serif;font-size:17px;color:#B6B6BD;margin:14px 0 0;")}>Fale connosco sobre a sua carroçaria ou o material que precisa.</p>
           </div>
-          <El tag="button" onClick={() => openQuote("")}
+          <El tag="button" onClick={() => go("contactos")}
             css="background:#E01E26;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:16px;color:#fff;padding:18px 34px;"
-            hover="background:#B0151B;">Pedir Orçamento →</El>
+            hover="background:#B0151B;">Contactar →</El>
         </div>
       </section>
     </main>

@@ -38,12 +38,12 @@ export default function Contactos({ content }) {
         <div style={s("max-width:1240px;margin:0 auto;padding:74px 32px 70px;")}>
           <div style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:#E01E26;margin-bottom:14px;")}>Contactos</div>
           <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(38px,5.5vw,66px);line-height:.96;margin:0;")}>Falamos consigo</h1>
-          <p style={s("font-family:'Barlow',sans-serif;font-size:18px;color:#C7C7CC;margin:20px 0 0;max-width:52ch;")}>Peça um orçamento, tire uma dúvida ou venha à loja. Respondemos sempre.</p>
+          <p style={s("font-family:'Barlow',sans-serif;font-size:18px;color:#C7C7CC;margin:20px 0 0;max-width:52ch;")}>Tire uma dúvida, peça informações ou venha à loja. Respondemos sempre.</p>
         </div>
         <div style={s("height:7px;background:repeating-linear-gradient(45deg,#E01E26 0 16px,#0F0F11 16px 32px);")}></div>
       </section>
 
-      <section style={s("max-width:1240px;margin:0 auto;padding:72px 32px 90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;align-items:start;")}>
+      <section style={s("max-width:1240px;margin:0 auto;padding:72px 32px 90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:50px;align-items:start;")}>
         {/* INFO */}
         <div>
           <div style={s("display:grid;gap:2px;border:1px solid #E4E4E0;")}>
@@ -73,7 +73,7 @@ export default function Contactos({ content }) {
             </div>
           ) : (
             <form onSubmit={submit}>
-              <h3 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:24px;color:#fff;margin:0 0 6px;")}>Pedir orçamento</h3>
+              <h3 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:24px;color:#fff;margin:0 0 6px;")}>Contacte-nos</h3>
               <p style={s("font-family:'Barlow',sans-serif;font-size:15px;color:#B6B6BD;margin:0 0 24px;")}>Preencha e nós tratamos do resto.</p>
               <div style={s("display:grid;gap:16px;")}>
                 <input required placeholder="Nome" value={form.name} onChange={upd("name")} style={s(fieldCss)} />
@@ -87,7 +87,7 @@ export default function Contactos({ content }) {
                 <textarea required rows="4" placeholder="Descreva o que precisa" value={form.message} onChange={upd("message")} style={s(fieldCss + "resize:vertical;")}></textarea>
                 <El tag="button" type="submit" disabled={busy}
                   css="background:#E01E26;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:15px;color:#fff;padding:16px 24px;"
-                  hover="background:#B0151B;">{busy ? "A enviar…" : "Enviar pedido →"}</El>
+                  hover="background:#B0151B;">{busy ? "A enviar…" : "Enviar mensagem →"}</El>
               </div>
             </form>
           )}

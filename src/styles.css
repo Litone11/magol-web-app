@@ -48,3 +48,10 @@ input, textarea, select, button { font-family: inherit; }
   margin-bottom: 6px;
   display: block;
 }
+
+/* ---- Mobile / responsivo ---- */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+h1, h2, h3, h4 { overflow-wrap: break-word; }
+img, iframe { max-width: 100%; }
+button { -webkit-tap-highlight-color: rgba(224, 30, 38, .25); }

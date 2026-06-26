@@ -1,6 +1,6 @@
 import { El, s } from "../ui.jsx";
 
-export default function Drogaria({ content, openQuote }) {
+export default function Drogaria({ content, go }) {
   return (
     <main>
       <section style={s("position:relative;background:#0F0F11;overflow:hidden;")}>
@@ -15,7 +15,7 @@ export default function Drogaria({ content, openQuote }) {
       </section>
 
       <section style={s("max-width:1240px;margin:0 auto;padding:72px 32px 90px;")}>
-        <div style={s("display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px;")}>
+        <div style={s("display:grid;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));gap:24px;")}>
           {content.drogaria.map((item) => (
             <El key={item.id || item.title} css="border:1px solid #E4E4E0;background:#fff;display:flex;flex-direction:column;overflow:hidden;" hover="border-color:#16161A;">
               <div style={s("position:relative;height:170px;background:#F4F4F2;")}>
@@ -24,10 +24,7 @@ export default function Drogaria({ content, openQuote }) {
               </div>
               <div style={s("padding:24px;display:flex;flex-direction:column;flex:1;")}>
                 <h3 style={s("font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:21px;margin:0 0 10px;color:#16161A;line-height:1.05;")}>{item.title}</h3>
-                <p style={s("font-family:'Barlow',sans-serif;font-size:15px;line-height:1.55;color:#55555E;margin:0 0 22px;")}>{item.description}</p>
-                <El tag="button" onClick={() => openQuote("Drogaria — " + item.title)}
-                  css="margin-top:auto;align-self:flex-start;background:none;border:1px solid #16161A;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:#16161A;padding:11px 18px;"
-                  hover="background:#16161A;color:#fff;">Pedir disponibilidade</El>
+                <p style={s("font-family:'Barlow',sans-serif;font-size:15px;line-height:1.55;color:#55555E;margin:0;")}>{item.description}</p>
               </div>
             </El>
           ))}
@@ -37,7 +34,7 @@ export default function Drogaria({ content, openQuote }) {
             <h3 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;margin:0 0 8px;")}>Não encontra o que procura?</h3>
             <p style={s("font-family:'Barlow',sans-serif;font-size:16px;color:#B6B6BD;margin:0;")}>Temos muito mais em loja. Diga-nos o que precisa e nós verificamos.</p>
           </div>
-          <El tag="button" onClick={() => openQuote("")}
+          <El tag="button" onClick={() => go("contactos")}
             css="background:#E01E26;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:15px;color:#fff;padding:16px 28px;"
             hover="background:#B0151B;">Falar connosco →</El>
         </div>
