@@ -36,6 +36,7 @@ export const DEFAULTS = {
     phoneMobile: "+351 912 000 340",
     email: "geral@magol.pt",
     hours: "Seg–Sex · 08:30–18:30\nSábado · 09:00–13:00",
+    map: "40.758741, -8.484115",
   },
 
   stats: [

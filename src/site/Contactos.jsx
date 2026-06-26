@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { El, s } from "../ui.jsx";
 import { submitLead } from "../lib/leads.js";
+import { mapEmbedSrc } from "../lib/mapEmbed.js";
 
 const EMPTY = { name: "", email: "", phone: "", subject: "Carroçarias", message: "" };
 const fieldCss = "background:#1C1C22;border:1px solid #33333A;color:#fff;font-family:'Barlow',sans-serif;font-size:15px;padding:14px 16px;";
@@ -16,6 +17,7 @@ function InfoRow({ label, children, top }) {
 
 export default function Contactos({ content }) {
   const { contacts } = content;
+  const mapSrc = mapEmbedSrc(contacts);
   const [form, setForm] = useState(EMPTY);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -53,10 +55,9 @@ export default function Contactos({ content }) {
             <InfoRow label="Email" top>{contacts.email}</InfoRow>
             <InfoRow label="Horário" top>{contacts.hours}</InfoRow>
           </div>
-          <div style={s("margin-top:20px;position:relative;height:220px;background:#F4F4F2;border:1px solid #E4E4E0;")}>
-            <img src="https://loremflickr.com/720/440/storefront,shop?lock=52" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+          <div style={s("margin-top:20px;position:relative;height:300px;background:#F4F4F2;border:1px solid #E4E4E0;")}>
+            <iframe title="Localização MAGOL" src={mapSrc} style={s("position:absolute;inset:0;width:100%;height:100%;border:0;")} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen></iframe>
           </div>
-          <p style={s("font-family:'Barlow',sans-serif;font-size:13px;color:#8A8A92;margin:12px 0 0;")}>Contactos fictícios para efeitos de demonstração — substituímos pelos reais quando indicar.</p>
         </div>
 
         {/* FORM */}

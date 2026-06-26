@@ -151,6 +151,7 @@ export function ContactsEditor() {
     { key: "phoneMobile", label: "Telemóvel" },
     { key: "email", label: "Email" },
     { key: "hours", label: "Horário", type: "textarea", full: true },
+    { key: "map", label: "Mapa — coordenadas, morada, ou link 'Incorporar' do Google Maps (vazio = usa a morada)", type: "textarea", full: true },
   ];
 
   return (

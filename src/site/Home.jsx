@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { El, s } from "../ui.jsx";
+import { mapEmbedSrc } from "../lib/mapEmbed.js";
 
 const TERMS = ["Basculantes", "Caixas Abertas", "Isotérmicas", "Reboques", "Tintas", "Ferramentas", "Ferragens", "Reparações"];
 
@@ -24,6 +25,7 @@ function TickerRow({ hidden }) {
 
 export default function Home({ content, go, openQuote }) {
   const { texts, stats } = content;
+  const mapSrc = mapEmbedSrc(content.contacts);
   return (
     <main>
       {/* HERO */}
@@ -132,8 +134,8 @@ export default function Home({ content, go, openQuote }) {
             hover="background:#16161A;color:#fff;">Conhecer a MAGOL</El>
         </div>
         <div style={s("position:relative;height:420px;")}>
-          <img src="https://loremflickr.com/700/840/workshop,mechanic?lock=23" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
-          <div style={s("position:absolute;bottom:-1px;left:-1px;background:#E01E26;color:#fff;padding:22px 26px;max-width:230px;")}>
+          <iframe title="Localização MAGOL" src={mapSrc} style={s("position:absolute;inset:0;width:100%;height:100%;border:0;")} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen></iframe>
+          <div style={s("position:absolute;bottom:-1px;left:-1px;background:#E01E26;color:#fff;padding:22px 26px;max-width:230px;pointer-events:none;")}>
             <div style={s("font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;line-height:1;")}>Branca</div>
             <div style={s("font-family:'Barlow',sans-serif;font-size:14px;color:#FBD0D2;margin-top:6px;")}>Albergaria-a-Velha · Aveiro</div>
           </div>
