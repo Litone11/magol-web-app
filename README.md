@@ -117,8 +117,10 @@ src/
     supabase.js         Cliente Supabase + flag isConfigured
     content.js          Defaults + loadContent() (lê da BD, com fallback)
     leads.js            submitLead() (formulários → tabela leads)
+    storage.js          uploadImage() (upload p/ Supabase Storage)
   site/                 Site público: Nav, Footer, QuoteModal + 5 páginas
   admin/                Painel: Admin (login/tabs) + editors (CRUD)
+supabase/storage.sql    Bucket de imagens + regras (correr depois do schema.sql)
 ```
 
 ## O que é editável no painel
@@ -131,8 +133,10 @@ src/
 
 ## Notas
 
-- As imagens usam placeholders do `loremflickr.com`. Para fotos reais, basta colar o
-  URL da imagem no campo "Imagem (URL)" de cada item. (Opcional: ativar o
-  **Supabase Storage** para upload de ficheiros — fica para uma 2ª fase.)
+- **Imagens do catálogo:** no painel, cada item tem um botão **"Carregar ficheiro"** que
+  faz upload do teu computador para o **Supabase Storage** (bucket `images`) e preenche o
+  URL automaticamente. Também podes colar um URL à mão. Para ativar, corre uma vez o
+  `supabase/storage.sql` no SQL Editor (cria o bucket + regras: ler público, carregar só admin).
+  Os placeholders iniciais são do `loremflickr.com`.
 - O logótipo é um wordmark "MAGOL." em tipografia Oswald. Para usar o logótipo real,
   substitui o `<span className="mg-logo">` em `src/site/Nav.jsx` e `Footer.jsx`.

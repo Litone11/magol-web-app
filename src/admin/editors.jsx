@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase.js";
+import { uploadImage } from "../lib/storage.js";
 import { DEFAULTS, TEXT_FIELDS } from "../lib/content.js";
 import { El, s } from "../ui.jsx";
 
@@ -13,7 +14,42 @@ function Status({ text }) {
   return <span style={s("font-family:'Barlow',sans-serif;font-size:14px;margin-left:14px;color:" + (err ? "#FF6B6B" : "#5AD18A") + ";")}>{text}</span>;
 }
 
+// Campo de imagem: caixa de URL + botão para carregar ficheiro do computador.
+function ImageField({ def, value, onChange }) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const inputRef = useRef(null);
+
+  async function pick(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = ""; // permite re-selecionar o mesmo ficheiro
+    if (!file) return;
+    setErr("");
+    setBusy(true);
+    const res = await uploadImage(file);
+    setBusy(false);
+    if (res.ok) onChange(res.url);
+    else setErr(res.error || "Falha no upload.");
+  }
+
+  return (
+    <div style={{ gridColumn: "1 / -1" }}>
+      <label className="adm-label">{def.label || "Imagem"}</label>
+      <div style={s("display:flex;gap:8px;flex-wrap:wrap;align-items:center;")}>
+        {value ? <img src={value} alt="" style={s("width:54px;height:40px;object-fit:cover;background:#0F0F11;border:1px solid #2A2A30;flex-shrink:0;")} /> : null}
+        <input className="adm-input" style={{ flex: "1 1 180px" }} type="text" value={value ?? ""} onChange={(e) => onChange(e.target.value)} placeholder="URL da imagem, ou carrega um ficheiro →" />
+        <El tag="button" type="button" onClick={() => inputRef.current && inputRef.current.click()} disabled={busy}
+          css="background:none;border:1px solid #45454C;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:12px;color:#fff;padding:11px 16px;white-space:nowrap;"
+          hover="border-color:#E01E26;color:#E01E26;">{busy ? "A carregar…" : "Carregar ficheiro"}</El>
+        <input ref={inputRef} type="file" accept="image/*" onChange={pick} style={{ display: "none" }} />
+      </div>
+      {err ? <div style={s("font-family:'Barlow',sans-serif;font-size:13px;color:#FF6B6B;margin-top:6px;")}>{err}</div> : null}
+    </div>
+  );
+}
+
 function Field({ def, value, onChange }) {
+  if (def.type === "image") return <ImageField def={def} value={value} onChange={onChange} />;
   return (
     <div style={def.full ? { gridColumn: "1 / -1" } : undefined}>
       <label className="adm-label">{def.label}</label>
@@ -257,7 +293,7 @@ export const CARRO_FIELDS = [
   { key: "no", label: "Nº" },
   { key: "title", label: "Título" },
   { key: "tag", label: "Etiqueta" },
-  { key: "image_url", label: "Imagem (URL)", full: true },
+  { key: "image_url", label: "Imagem", type: "image", full: true },
   { key: "description", label: "Descrição", type: "textarea", full: true },
 ];
 export const CARRO_NEW = { no: "", title: "Novo serviço", tag: "", description: "", image_url: "https://loremflickr.com/640/420/truck?lock=99" };
@@ -266,7 +302,7 @@ export const DROG_FIELDS = [
   { key: "pos", label: "Ordem", type: "number" },
   { key: "title", label: "Título" },
   { key: "count_label", label: "Badge (ex: +200 ref.)" },
-  { key: "image_url", label: "Imagem (URL)", full: true },
+  { key: "image_url", label: "Imagem", type: "image", full: true },
   { key: "description", label: "Descrição", type: "textarea", full: true },
 ];
 export const DROG_NEW = { title: "Nova categoria", count_label: "", description: "", image_url: "https://loremflickr.com/520/360/hardware?lock=98" };
