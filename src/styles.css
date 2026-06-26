@@ -1,0 +1,50 @@
+html, body { margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+body {
+  font-family: 'Barlow', sans-serif;
+  color: #16161A;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+#root { min-height: 100vh; }
+::selection { background: #E01E26; color: #fff; }
+img { display: block; }
+input, textarea, select, button { font-family: inherit; }
+
+@keyframes mg-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.mg-logo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: #fff;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+.mg-logo b { color: #E01E26; font-weight: 700; }
+
+/* Admin */
+.adm-input {
+  background: #1C1C22;
+  border: 1px solid #33333A;
+  color: #fff;
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  padding: 12px 14px;
+  width: 100%;
+}
+.adm-label {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 11px;
+  color: #8A8A92;
+  margin-bottom: 6px;
+  display: block;
+}
