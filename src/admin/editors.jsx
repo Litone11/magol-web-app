@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase.js";
 import { uploadImage } from "../lib/storage.js";
-import { DEFAULTS, TEXT_FIELDS } from "../lib/content.js";
+import { DEFAULTS, TEXT_FIELDS, IMAGE_FIELDS } from "../lib/content.js";
 import { El, s } from "../ui.jsx";
 
 const card = "background:#16161A;border:1px solid #2A2A30;padding:22px;margin-bottom:18px;";
@@ -224,6 +224,43 @@ export function StatsTextsEditor() {
             <Field key={key} def={{ label, type: "textarea", rows: 2, full: true }} value={texts[key]} onChange={setText(key)} />
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// -------- Imagens do site (fundos de topo, cartões, foto da Empresa) --------
+export function SiteImagesEditor() {
+  const [val, setVal] = useState(null);
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    supabase.from("settings").select("value").eq("key", "images").maybeSingle()
+      .then(({ data }) => setVal({ ...DEFAULTS.images, ...(data?.value || {}) }));
+  }, []);
+
+  if (!val) return <Loading />;
+  const upd = (k) => (v) => setVal((c) => ({ ...c, [k]: v }));
+
+  async function save() {
+    setStatus("A guardar…");
+    const { error } = await supabase.from("settings").upsert({ key: "images", value: val, updated_at: new Date().toISOString() });
+    setStatus(error ? "Erro: " + error.message : "Guardado ✓");
+  }
+
+  return (
+    <div>
+      <Header title="Imagens do site" action={<El tag="button" onClick={save} css={btnRed} hover="background:#B0151B;">Guardar imagens</El>} status={status} />
+      <p style={s("font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;color:#8A8A92;margin:0 0 18px;max-width:70ch;")}>
+        Estas são as fotos fixas do site: os fundos do topo de cada página, os dois cartões da página inicial e a foto principal da página <b style={{ color: "#fff" }}>Empresa</b>. Carrega um ficheiro do computador ou cola um URL. Se deixares um campo vazio, volta automaticamente à imagem por omissão.
+      </p>
+      <div style={s(card)}>
+        <div style={s("display:grid;gap:20px;")}>
+          {IMAGE_FIELDS.map(([key, label]) => (
+            <Field key={key} def={{ label, type: "image", full: true }} value={val[key]} onChange={upd(key)} />
+          ))}
+        </div>
+        <div style={s("margin-top:20px;")}><El tag="button" onClick={save} css={btnRed} hover="background:#B0151B;">Guardar imagens</El></div>
       </div>
     </div>
   );

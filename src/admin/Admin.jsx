@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase, isConfigured } from "../lib/supabase.js";
 import { El, s } from "../ui.jsx";
 import {
-  CatalogueEditor, ContactsEditor, StatsTextsEditor, LeadsViewer,
+  CatalogueEditor, ContactsEditor, StatsTextsEditor, SiteImagesEditor, LeadsViewer,
   CARRO_FIELDS, CARRO_NEW, DROG_FIELDS, DROG_NEW,
 } from "./editors.jsx";
 
@@ -11,6 +11,7 @@ const TABS = [
   ["drog", "Drogaria"],
   ["contactos", "Contactos"],
   ["definicoes", "Estatísticas & textos"],
+  ["imagens", "Imagens"],
   ["pedidos", "Pedidos"],
 ];
 
@@ -48,6 +49,7 @@ export default function Admin() {
       {tab === "drog" && <CatalogueEditor table="drogaria" fields={DROG_FIELDS} newRow={DROG_NEW} title="Catálogo · Drogaria" />}
       {tab === "contactos" && <ContactsEditor />}
       {tab === "definicoes" && <StatsTextsEditor />}
+      {tab === "imagens" && <SiteImagesEditor />}
       {tab === "pedidos" && <LeadsViewer />}
     </Shell>
   );

@@ -25,7 +25,7 @@ export default function Sobre({ content, go }) {
           <p style={s("font-family:'Barlow',sans-serif;font-size:18px;line-height:1.7;color:#33333A;margin:0;")}>{texts.aboutP3}</p>
         </div>
         <div style={s("position:relative;height:440px;")}>
-          <img src="https://loremflickr.com/720/880/factory,workshop,welding?lock=51" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+          <img src={content.images.sobrePhoto} alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
         </div>
       </section>
 

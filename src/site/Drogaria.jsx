@@ -4,7 +4,7 @@ export default function Drogaria({ content, go }) {
   return (
     <main>
       <section style={s("position:relative;background:#0F0F11;overflow:hidden;")}>
-        <img src="https://loremflickr.com/1400/800/hardware,store,shelves?lock=13" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+        <img src={content.images.drogHero} alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
         <div style={s("position:absolute;inset:0;background:linear-gradient(95deg,rgba(15,15,17,.94) 0%,rgba(15,15,17,.80) 50%,rgba(15,15,17,.4) 100%);")}></div>
         <div style={s("position:relative;max-width:1240px;margin:0 auto;padding:84px 32px 90px;")}>
           <div style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:#E01E26;margin-bottom:14px;")}>Área 02 — Catálogo</div>

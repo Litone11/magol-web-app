@@ -46,6 +46,17 @@ export const DEFAULTS = {
     { value: "100%", label: "Fabrico nacional" },
   ],
 
+  // Imagens "fixas" do site (fundos de topo, cartoes da pagina inicial,
+  // foto da pagina Empresa). Editaveis no painel -> separador "Imagens".
+  images: {
+    homeHero: "https://loremflickr.com/1600/900/truck,workshop,welding?lock=10",
+    homeAreaCarro: "https://loremflickr.com/700/520/lorry,truck?lock=21",
+    homeAreaDrog: "https://loremflickr.com/700/520/paint,hardware,store?lock=22",
+    carroHero: "https://loremflickr.com/1400/800/truck,factory?lock=12",
+    drogHero: "https://loremflickr.com/1400/800/hardware,store,shelves?lock=13",
+    sobrePhoto: "https://loremflickr.com/720/880/factory,workshop,welding?lock=51",
+  },
+
   texts: {
     heroPre: "Branca · Aveiro · desde 1985",
     heroTitle: "Carroçarias feitas para o trabalho",
@@ -72,8 +83,30 @@ export const TEXT_FIELDS = [
   ["aboutP3", "Empresa · parágrafo 3"],
 ];
 
+// Imagens "fixas" editaveis no painel (chave -> rotulo amigavel).
+export const IMAGE_FIELDS = [
+  ["homeHero", "Início · imagem de fundo (topo)"],
+  ["homeAreaCarro", "Início · cartão Carroçarias"],
+  ["homeAreaDrog", "Início · cartão Drogaria"],
+  ["carroHero", "Carroçarias · imagem de fundo (topo)"],
+  ["drogHero", "Drogaria · imagem de fundo (topo)"],
+  ["sobrePhoto", "Empresa · foto principal"],
+];
+
 function clone(x) {
   return JSON.parse(JSON.stringify(x));
+}
+
+// Junta as imagens guardadas com as por omissao: campo vazio -> volta ao default,
+// para o site nunca ficar com uma foto em branco.
+export function withImageDefaults(images) {
+  const raw = images || {};
+  const out = {};
+  for (const k of Object.keys(DEFAULTS.images)) {
+    const v = raw[k];
+    out[k] = typeof v === "string" && v.trim() ? v : DEFAULTS.images[k];
+  }
+  return out;
 }
 
 // Le todo o conteudo do site. Sem Supabase configurada -> devolve os defaults.
@@ -96,6 +129,7 @@ export async function loadContent() {
       contacts: { ...DEFAULTS.contacts, ...(cfg.contacts || {}) },
       stats: Array.isArray(cfg.stats) && cfg.stats.length ? cfg.stats : clone(DEFAULTS.stats),
       texts: { ...DEFAULTS.texts, ...(cfg.texts || {}) },
+      images: withImageDefaults(cfg.images),
     };
   } catch (err) {
     console.warn("Falha a carregar da Supabase, a usar defaults:", err);

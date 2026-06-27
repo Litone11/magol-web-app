@@ -25,14 +25,14 @@ function TickerRow({ hidden }) {
 }
 
 export default function Home({ content, go }) {
-  const { texts, stats } = content;
+  const { texts, stats, images } = content;
   const mapSrc = mapEmbedSrc(content.contacts);
   const isMobile = useIsMobile();
   return (
     <main>
       {/* HERO */}
       <section style={s("position:relative;background:#0F0F11;overflow:hidden;")}>
-        <img src="________________" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+        <img src={images.homeHero} alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
         <div style={s("position:absolute;inset:0;background:linear-gradient(95deg,rgba(15,15,17,.93) 0%,rgba(15,15,17,.74) 42%,rgba(15,15,17,.18) 100%);")}></div>
         <div style={s("position:relative;max-width:1240px;margin:0 auto;padding:" + (isMobile ? "72px 24px 84px" : "120px 32px 130px") + ";width:100%;")}>
           <div style={s("display:flex;align-items:center;gap:14px;margin-bottom:26px;")}>
@@ -74,7 +74,7 @@ export default function Home({ content, go }) {
           {/* carro */}
           <div style={s("background:#0F0F11;color:#fff;overflow:hidden;display:flex;flex-direction:column;")}>
             <div style={s("position:relative;height:240px;")}>
-              <img src="https://loremflickr.com/700/520/lorry,truck?lock=21" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+              <img src={images.homeAreaCarro} alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
               <span style={s("position:absolute;top:18px;left:18px;background:#E01E26;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:12px;padding:7px 12px;")}>Área 01</span>
             </div>
             <div style={s("padding:30px;display:flex;flex-direction:column;flex:1;")}>
@@ -93,7 +93,7 @@ export default function Home({ content, go }) {
           {/* drog */}
           <div style={s("background:#F4F4F2;color:#16161A;overflow:hidden;display:flex;flex-direction:column;border:1px solid #E4E4E0;")}>
             <div style={s("position:relative;height:240px;")}>
-              <img src="https://loremflickr.com/700/520/paint,hardware,store?lock=22" alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
+              <img src={images.homeAreaDrog} alt="" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")} />
               <span style={s("position:absolute;top:18px;left:18px;background:#16161A;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:12px;padding:7px 12px;")}>Área 02</span>
             </div>
             <div style={s("padding:30px;display:flex;flex-direction:column;flex:1;")}>
