@@ -37,7 +37,7 @@ export default function Contactos({ content }) {
       <section style={s("background:#0F0F11;")}>
         <div style={s("max-width:1240px;margin:0 auto;padding:74px 32px 70px;")}>
           <div style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:#E01E26;margin-bottom:14px;")}>Contactos</div>
-          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(38px,5.5vw,66px);line-height:.96;margin:0;")}>Falamos consigo</h1>
+          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(38px,5.5vw,66px);line-height:1.02;margin:0;")}>Falamos consigo</h1>
           <p style={s("font-family:'Barlow',sans-serif;font-size:18px;color:#C7C7CC;margin:20px 0 0;max-width:52ch;")}>Tire uma dúvida, peça informações ou venha à loja. Respondemos sempre.</p>
         </div>
         <div style={s("height:7px;background:repeating-linear-gradient(45deg,#E01E26 0 16px,#0F0F11 16px 32px);")}></div>

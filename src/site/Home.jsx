@@ -39,7 +39,7 @@ export default function Home({ content, go }) {
             <span style={s("width:38px;height:3px;background:#E01E26;display:block;")}></span>
             <span style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.22em;font-size:13px;color:#E01E26;")}>{texts.heroPre}</span>
           </div>
-          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(46px,7vw,94px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:16ch;")}>{texts.heroTitle}<span style={{ color: "#E01E26" }}>{texts.heroAccent}</span></h1>
+          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(44px,7vw,92px);line-height:1.05;letter-spacing:-.005em;margin:0;max-width:16ch;")}>{texts.heroTitle}<span style={{ color: "#E01E26" }}>{texts.heroAccent}</span></h1>
           <p style={s("font-family:'Barlow',sans-serif;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#C7C7CC;max-width:54ch;margin:30px 0 0;")}>{texts.heroSub}</p>
           <div style={s("display:flex;gap:14px;flex-wrap:wrap;margin-top:42px;")}>
             <El tag="button" onClick={() => go("carrocarias")}

@@ -8,7 +8,7 @@ export default function Drogaria({ content, go }) {
         <div style={s("position:absolute;inset:0;background:linear-gradient(95deg,rgba(15,15,17,.94) 0%,rgba(15,15,17,.80) 50%,rgba(15,15,17,.4) 100%);")}></div>
         <div style={s("position:relative;max-width:1240px;margin:0 auto;padding:84px 32px 90px;")}>
           <div style={s("font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:#E01E26;margin-bottom:14px;")}>Área 02 — Catálogo</div>
-          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(40px,6vw,76px);line-height:.95;margin:0;")}>Drogaria</h1>
+          <h1 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;color:#fff;font-size:clamp(40px,6vw,76px);line-height:1.02;margin:0;")}>Drogaria</h1>
           <p style={s("font-family:'Barlow',sans-serif;font-size:19px;line-height:1.55;color:#C7C7CC;max-width:56ch;margin:24px 0 0;")}>Tudo para a obra, a casa e a indústria. Veja as categorias e peça-nos disponibilidade e preço dos artigos que precisa.</p>
         </div>
         <div style={s("position:absolute;bottom:0;left:0;right:0;height:7px;background:repeating-linear-gradient(45deg,#E01E26 0 16px,#0F0F11 16px 32px);")}></div>
