@@ -2,22 +2,30 @@ import { useEffect, useState } from "react";
 import { supabase, isConfigured } from "../lib/supabase.js";
 import { El, s } from "../ui.jsx";
 import {
-  CatalogueEditor, ContactsEditor, StatsTextsEditor, SiteImagesEditor, LeadsViewer,
+  CatalogueEditor, ContactsEditor, StatsTextsEditor, SiteImagesEditor, DrogariaItemsEditor, BrandsEditor, LeadsViewer,
   CARRO_FIELDS, CARRO_NEW, DROG_FIELDS, DROG_NEW,
 } from "./editors.jsx";
 
 const TABS = [
   ["carro", "Carroçarias"],
-  ["drog", "Drogaria"],
+  ["drogaria", "Drogaria"],
   ["contactos", "Contactos"],
   ["definicoes", "Estatísticas & textos"],
   ["imagens", "Imagens"],
   ["pedidos", "Pedidos"],
 ];
 
+// Sub-secções dentro de "Drogaria" (escolhidas mais abaixo, dentro da página).
+const DROG_SUBTABS = [
+  ["produtos", "Produtos"],
+  ["categorias", "Categorias"],
+  ["marcas", "Marcas"],
+];
+
 export default function Admin() {
   const [session, setSession] = useState(undefined); // undefined = ainda a verificar
   const [tab, setTab] = useState("carro");
+  const [drogSub, setDrogSub] = useState("produtos");
 
   useEffect(() => {
     if (!isConfigured) { setSession(null); return; }
@@ -46,7 +54,21 @@ export default function Admin() {
       }
     >
       {tab === "carro" && <CatalogueEditor table="carrocarias" fields={CARRO_FIELDS} newRow={CARRO_NEW} title="Catálogo · Carroçarias" />}
-      {tab === "drog" && <CatalogueEditor table="drogaria" fields={DROG_FIELDS} newRow={DROG_NEW} title="Catálogo · Drogaria" />}
+      {tab === "drogaria" && (
+        <div>
+          <div style={s("display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid #2A2A30;margin-bottom:26px;")}>
+            {DROG_SUBTABS.map(([key, label]) => (
+              <button key={key} onClick={() => setDrogSub(key)}
+                style={s(`background:none;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:14px;padding:11px 16px;margin-bottom:-1px;color:${drogSub === key ? "#fff" : "#8A8A92"};border-bottom:2px solid ${drogSub === key ? "#E01E26" : "transparent"};`)}>
+                {label}
+              </button>
+            ))}
+          </div>
+          {drogSub === "produtos" && <DrogariaItemsEditor />}
+          {drogSub === "categorias" && <CatalogueEditor table="drogaria" fields={DROG_FIELDS} newRow={DROG_NEW} title="Categorias da Drogaria" />}
+          {drogSub === "marcas" && <BrandsEditor />}
+        </div>
+      )}
       {tab === "contactos" && <ContactsEditor />}
       {tab === "definicoes" && <StatsTextsEditor />}
       {tab === "imagens" && <SiteImagesEditor />}

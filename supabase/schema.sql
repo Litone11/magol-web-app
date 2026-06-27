@@ -14,8 +14,11 @@ create table if not exists public.carrocarias (
   tag         text not null default '',
   description text not null default '',
   image_url   text not null default '',
+  images      jsonb not null default '[]'::jsonb,
   created_at  timestamptz not null default now()
 );
+-- Migracao: galeria de trabalhos (portfolio) em bases ja existentes.
+alter table public.carrocarias add column if not exists images jsonb not null default '[]'::jsonb;
 
 -- 2) CATALOGO DROGARIA --------------------------------------
 create table if not exists public.drogaria (
@@ -149,5 +152,34 @@ insert into public.settings (key, value) values
   ('contacts', '{"address":"Rua da Indústria, 124\n3850-118 Branca · Albergaria-a-Velha\nAveiro, Portugal","phoneLandline":"+351 234 500 120","phoneMobile":"+351 912 000 340","email":"geral@magol.pt","hours":"Seg–Sex · 08:30–18:30\nSábado · 09:00–13:00"}'::jsonb),
   ('stats', '[{"value":"40+","label":"Anos de experiência"},{"value":"2","label":"Áreas de negócio"},{"value":"1500+","label":"Clientes servidos"},{"value":"100%","label":"Fabrico nacional"}]'::jsonb),
   ('texts', '{"heroPre":"Branca · Aveiro · desde 1985","heroTitle":"Carroçarias feitas para o trabalho","heroAccent":" a sério.","heroSub":"Fabrico, reparação e equipamento para o seu veículo de trabalho — e uma drogaria completa para a obra, a casa e a indústria. Tudo na Branca, Aveiro."}'::jsonb),
-  ('images', '{"homeHero":"https://loremflickr.com/1600/900/truck,workshop,welding?lock=10","homeAreaCarro":"https://loremflickr.com/700/520/lorry,truck?lock=21","homeAreaDrog":"https://loremflickr.com/700/520/paint,hardware,store?lock=22","carroHero":"https://loremflickr.com/1400/800/truck,factory?lock=12","drogHero":"https://loremflickr.com/1400/800/hardware,store,shelves?lock=13","sobrePhoto":"https://loremflickr.com/720/880/factory,workshop,welding?lock=51"}'::jsonb)
+  ('images', '{"homeHero":"https://loremflickr.com/1600/900/truck,workshop,welding?lock=10","homeAreaCarro":"https://loremflickr.com/700/520/lorry,truck?lock=21","homeAreaDrog":"https://loremflickr.com/700/520/paint,hardware,store?lock=22","carroHero":"https://loremflickr.com/1400/800/truck,factory?lock=12","drogHero":"https://loremflickr.com/1400/800/hardware,store,shelves?lock=13","sobrePhoto":"https://loremflickr.com/720/880/factory,workshop,welding?lock=51"}'::jsonb),
+  ('brands', '[{"name":"Bosch","logo":""},{"name":"CIN","logo":""},{"name":"Legrand","logo":""},{"name":"Makita","logo":""},{"name":"Robbialac","logo":""},{"name":"Roca","logo":""}]'::jsonb)
 on conflict (key) do nothing;
+
+-- ============================================================
+--  6) PRODUTOS DA DROGARIA (itens por categoria)
+--     Cada produto pertence a uma categoria (drogaria) e tem
+--     marca, referencia, descricao e varias fotos.
+--     Detalhe completo em supabase/drogaria-items.sql
+-- ============================================================
+create table if not exists public.drogaria_items (
+  id          uuid primary key default gen_random_uuid(),
+  category_id uuid references public.drogaria(id) on delete set null,
+  pos         int  not null default 0,
+  title       text not null default 'Novo produto',
+  brand       text not null default '',
+  reference   text not null default '',
+  description text not null default '',
+  images      jsonb not null default '[]'::jsonb,
+  tags        jsonb not null default '[]'::jsonb,
+  created_at  timestamptz not null default now()
+);
+-- Migracao: garante a coluna de destaques em bases ja existentes.
+alter table public.drogaria_items add column if not exists tags jsonb not null default '[]'::jsonb;
+create index if not exists drogaria_items_category_idx on public.drogaria_items (category_id);
+
+alter table public.drogaria_items enable row level security;
+drop policy if exists "public read drogaria_items" on public.drogaria_items;
+drop policy if exists "admin write drogaria_items" on public.drogaria_items;
+create policy "public read drogaria_items" on public.drogaria_items for select using (true);
+create policy "admin write drogaria_items" on public.drogaria_items for all to authenticated using (public.is_admin()) with check (public.is_admin());
