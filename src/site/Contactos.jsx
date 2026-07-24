@@ -15,17 +15,19 @@ function InfoRow({ label, children, top }) {
   );
 }
 
-export default function Contactos({ content }) {
+export default function Contactos({ content, go }) {
   const { contacts } = content;
   const mapSrc = mapEmbedSrc(contacts);
   const [form, setForm] = useState(EMPTY);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const upd = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   async function submit(e) {
     e.preventDefault();
+    if (!privacyAccepted) return;
     setBusy(true);
     await submitLead({ ...form, subject: "Contacto — " + form.subject });
     setBusy(false);
@@ -67,7 +69,7 @@ export default function Contactos({ content }) {
               <div style={s("width:64px;height:64px;background:#E01E26;display:grid;place-items:center;margin:0 auto 22px;font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;color:#fff;")}>✓</div>
               <h3 style={s("font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;color:#fff;margin:0 0 10px;")}>Pedido enviado</h3>
               <p style={s("font-family:'Barlow',sans-serif;font-size:16px;color:#B6B6BD;margin:0 0 24px;")}>Obrigado! Entraremos em contacto o mais breve possível.</p>
-              <El tag="button" onClick={() => { setSent(false); setForm(EMPTY); }}
+              <El tag="button" onClick={() => { setSent(false); setForm(EMPTY); setPrivacyAccepted(false); }}
                 css="background:none;border:1px solid #45454C;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:#fff;padding:13px 24px;"
                 hover="border-color:#fff;">Enviar outro pedido</El>
             </div>
@@ -85,6 +87,20 @@ export default function Contactos({ content }) {
                   <option>Outro assunto</option>
                 </select>
                 <textarea required rows="4" placeholder="Descreva o que precisa" value={form.message} onChange={upd("message")} style={s(fieldCss + "resize:vertical;")}></textarea>
+                <div style={s("display:flex;align-items:flex-start;gap:10px;font-family:'Barlow',sans-serif;font-size:14px;line-height:1.45;color:#C7C7CC;")}>
+                  <input
+                    required
+                    type="checkbox"
+                    checked={privacyAccepted}
+                    onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                    style={s("flex:0 0 18px;width:18px;height:18px;margin:1px 0 0;cursor:pointer;accent-color:#E01E26;")}
+                  />
+                  <span>Li e aceito a <El tag="button" type="button" onClick={() => go("privacidade")}
+                    css="background:none;border:none;cursor:pointer;font:inherit;color:#fff;padding:0;text-decoration:underline;text-underline-offset:3px;"
+                    hover="color:#E01E26;">política de privacidade</El> e os <El tag="button" type="button" onClick={() => go("termos")}
+                    css="background:none;border:none;cursor:pointer;font:inherit;color:#fff;padding:0;text-decoration:underline;text-underline-offset:3px;"
+                    hover="color:#E01E26;">termos e condições</El>.</span>
+                </div>
                 <El tag="button" type="submit" disabled={busy}
                   css="background:#E01E26;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:15px;color:#fff;padding:16px 24px;"
                   hover="background:#B0151B;">{busy ? "A enviar…" : "Enviar mensagem →"}</El>

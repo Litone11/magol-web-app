@@ -7,6 +7,7 @@ import Carrocarias from "./Carrocarias.jsx";
 import Drogaria from "./Drogaria.jsx";
 import Sobre from "./Sobre.jsx";
 import Contactos from "./Contactos.jsx";
+import Legal from "./Legal.jsx";
 
 const PAGES = { home: Home, carrocarias: Carrocarias, drogaria: Drogaria, sobre: Sobre, contactos: Contactos };
 
@@ -20,12 +21,12 @@ export default function Site() {
 
   if (!content) return <div style={{ minHeight: "100vh", background: "#0F0F11" }} />;
 
-  const Page = PAGES[page] || Home;
+  const Page = PAGES[page] || (page === "privacidade" || page === "cookies" || page === "termos" ? Legal : Home);
 
   return (
     <>
       <Nav page={page} go={go} />
-      <Page content={content} go={go} />
+      <Page content={content} go={go} type={page} />
       <Footer contacts={content.contacts} go={go} />
     </>
   );

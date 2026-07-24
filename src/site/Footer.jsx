@@ -37,8 +37,18 @@ export default function Footer({ contacts, go }) {
       </div>
       <div style={s("border-top:1px solid #1F1F24;")}>
         <div style={s("max-width:1240px;margin:0 auto;padding:20px 32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:'Barlow',sans-serif;font-size:13px;color:#5A5A62;")}>
-          <span>© 2026 MAGOL · Leonel & Filhos, Lda.</span>
-          <span>Branca · Albergaria-a-Velha · Aveiro</span>
+          <span>© 2026 MAGOL – Leonel & Filhos, Lda. | NIF: 500 855 897 | Matriculada na CRC de Albergaria-a-Velha</span>
+          <div style={s("display:flex;gap:14px;flex-wrap:wrap;")}>
+            <El tag="button" onClick={() => go("privacidade")}
+              css="background:none;border:none;cursor:pointer;font-family:'Barlow',sans-serif;font-size:13px;color:#9A9AA2;padding:0;text-decoration:underline;text-underline-offset:3px;"
+              hover="color:#fff;">Política de Privacidade</El>
+            <El tag="button" onClick={() => go("cookies")}
+              css="background:none;border:none;cursor:pointer;font-family:'Barlow',sans-serif;font-size:13px;color:#9A9AA2;padding:0;text-decoration:underline;text-underline-offset:3px;"
+              hover="color:#fff;">Política de Cookies</El>
+            <El tag="button" onClick={() => go("termos")}
+              css="background:none;border:none;cursor:pointer;font-family:'Barlow',sans-serif;font-size:13px;color:#9A9AA2;padding:0;text-decoration:underline;text-underline-offset:3px;"
+              hover="color:#fff;">Termos e Condições</El>
+          </div>
         </div>
       </div>
     </footer>
