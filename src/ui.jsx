@@ -17,6 +17,7 @@ export function s(css) {
   return out;
 }
 
+
 // Elemento com estilo por string e estilo-hover opcional (substitui o "style-hover" do design).
 export function El({ tag = "div", css = "", hover = "", children, ...rest }) {
   const [h, setH] = useState(false);
@@ -30,3 +31,4 @@ export function El({ tag = "div", css = "", hover = "", children, ...rest }) {
     </Tag>
   );
 }
+//1
