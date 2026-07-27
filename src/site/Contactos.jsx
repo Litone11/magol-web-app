@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { El, s } from "../ui.jsx";
-import { submitLead } from "../lib/leads.js";
 import { mapEmbedSrc } from "../lib/mapEmbed.js";
 
 const EMPTY = { name: "", email: "", phone: "", subject: "Carroçarias", message: "" };
 const fieldCss = "background:#1C1C22;border:1px solid #33333A;color:#fff;font-family:'Barlow',sans-serif;font-size:15px;padding:14px 16px;";
+
+function buildMailto(to, { name, email, phone, subject, message }) {
+  const body = `Nome: ${name}\nEmail: ${email}\nTelefone: ${phone || "-"}\n\nMensagem:\n${message}`;
+  const query = `subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${to}?${query}`;
+}
 
 function InfoRow({ label, children, top }) {
   return (
@@ -20,17 +25,15 @@ export default function Contactos({ content, go }) {
   const mapSrc = mapEmbedSrc(contacts);
   const [form, setForm] = useState(EMPTY);
   const [sent, setSent] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const upd = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
     if (!privacyAccepted) return;
-    setBusy(true);
-    await submitLead({ ...form, subject: "Contacto — " + form.subject });
-    setBusy(false);
+    const payload = { ...form, subject: "Contacto — " + form.subject };
+    window.location.href = buildMailto(contacts.email, payload);
     setSent(true);
   }
 
@@ -101,9 +104,9 @@ export default function Contactos({ content, go }) {
                     css="background:none;border:none;cursor:pointer;font:inherit;color:#fff;padding:0;text-decoration:underline;text-underline-offset:3px;"
                     hover="color:#E01E26;">termos e condições</El>.</span>
                 </div>
-                <El tag="button" type="submit" disabled={busy}
+                <El tag="button" type="submit"
                   css="background:#E01E26;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:15px;color:#fff;padding:16px 24px;"
-                  hover="background:#B0151B;">{busy ? "A enviar…" : "Enviar mensagem →"}</El>
+                  hover="background:#B0151B;">Enviar mensagem →</El>
               </div>
             </form>
           )}
