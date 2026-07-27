@@ -6,4 +6,5 @@ export async function submitLead(payload) {
   if (!isConfigured) return { ok: true, demo: true };
   const { error } = await supabase.from("leads").insert(payload);
   return { ok: !error, error };
+  
 }
