@@ -116,7 +116,7 @@ create policy "admin delete leads" on public.leads for delete to authenticated u
 --  ADMINS INICIAIS
 -- ============================================================
 insert into public.admins (email) values
-  ('luis.a110686@gmail.com')
+  ('admin@magol.pt')
 on conflict (email) do nothing;
 
 -- ============================================================
